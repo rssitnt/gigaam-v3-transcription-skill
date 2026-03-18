@@ -1,8 +1,0 @@
-{
-  "generated_at": "2026-03-18T18:25:51Z",
-  "engine": "public-gigaam-skill-runtime",
-  "success": true,
-  "text_out": "/mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts/smoke-hvzl/transcript.txt",
-  "json_out": "/mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts/smoke-hvzl/transcript.json",
-  "summary_out": "/mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts/smoke-hvzl/final_summary.json"
-}
