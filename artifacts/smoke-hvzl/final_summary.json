@@ -1,0 +1,7 @@
+{
+  "status": "ok",
+  "input": "/mnt/c/projects/automations/youtube-google-first/output/media/hvzlGl7ZEeg.wav",
+  "text_out": "/mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts/smoke-hvzl/transcript.txt",
+  "json_out": "/mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts/smoke-hvzl/transcript.json",
+  "segment_count": 30
+}

@@ -7,8 +7,10 @@ import sys
 from pathlib import Path
 from typing import Dict
 
-DEFAULT_OUTPUT_ROOT = Path("./output/transcripts")
-DEFAULT_ENV_FILE = Path("./examples/config.env.example")
+SKILL_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_OUTPUT_ROOT = SKILL_ROOT / "output" / "transcripts"
+DEFAULT_ENV_FILE = SKILL_ROOT / "config" / "local.env"
+RUNTIME_SCRIPT = Path(__file__).resolve().with_name("gigaam_skill_runtime.py")
 
 
 def load_env_file(path: Path) -> Dict[str, str]:
@@ -41,7 +43,7 @@ def main() -> int:
     parser.add_argument("--output-dir")
     parser.add_argument("--title")
     parser.add_argument("--language-hint", default="ru")
-    parser.add_argument("--kind")
+    parser.add_argument("--kind", default="audio")
     parser.add_argument("--env-file", default=str(DEFAULT_ENV_FILE))
     parser.add_argument("--print-command", action="store_true")
     args = parser.parse_args()
@@ -60,12 +62,6 @@ def main() -> int:
     chunk_seconds = env_value("GIGAAM_MAX_CHUNK_SECONDS", loaded) or "22"
     output_root = Path(env_value("GIGAAM_OUTPUT_ROOT", loaded) or str(DEFAULT_OUTPUT_ROOT))
 
-    if not gigaam_python:
-        raise SystemExit("ERROR: GIGAAM_LOCAL_PYTHON is not configured. Prepare config/env first.")
-
-    runtime_entrypoint = Path(gigaam_python).resolve().parent.parent / "lib-placeholder"
-    del runtime_entrypoint  # explicit no-op; public skill should not pretend to know private runtime layout
-
     title = args.title or input_path.stem
     output_dir = Path(args.output_dir) if args.output_dir else output_root / slug(title)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -73,45 +69,61 @@ def main() -> int:
     text_out = output_dir / "transcript.txt"
     json_out = output_dir / "transcript.json"
     summary_out = output_dir / "final_summary.json"
+    meta_out = output_dir / "run_meta.json"
 
     command = [
-        sys.executable,
-        "-m",
-        "gigaam_skill_runtime_stub",
+        gigaam_python or sys.executable,
+        str(RUNTIME_SCRIPT),
+        "transcribe",
         "--input",
         str(input_path),
-        "--python",
-        gigaam_python,
-        "--model",
-        model,
-        "--ffmpeg-bin",
-        ffmpeg_bin,
-        "--chunk-seconds",
-        chunk_seconds,
+        "--kind",
+        args.kind,
+        "--title",
+        title,
         "--language-hint",
         args.language_hint,
+        "--model",
+        model,
+        "--chunk-seconds",
+        chunk_seconds,
+        "--ffmpeg-bin",
+        ffmpeg_bin,
         "--text-out",
         str(text_out),
         "--json-out",
         str(json_out),
         "--summary-out",
         str(summary_out),
+        "--meta-output",
+        str(meta_out),
     ]
-    if args.kind:
-        command.extend(["--kind", args.kind])
 
     if args.print_command:
         print(json.dumps({"command": command}, ensure_ascii=False, indent=2))
         return 0
 
-    note = {
-        "status": "wrapper-draft",
-        "message": "This public repo still needs the final runtime adapter module instead of the private local entrypoint.",
+    if not gigaam_python:
+        raise SystemExit("ERROR: GIGAAM_LOCAL_PYTHON is not configured. Run bootstrap_gigaam_runtime.py first or provide config/local.env.")
+
+    completed = subprocess.run(command, capture_output=True, text=True)
+    if completed.returncode != 0:
+        print(completed.stdout)
+        print(completed.stderr, file=sys.stderr)
+        raise SystemExit(completed.returncode)
+
+    payload = json.loads(completed.stdout)
+    result = {
+        "status": "ok",
         "input": str(input_path),
         "output_dir": str(output_dir),
-        "suggested_command": command,
+        "text_out": str(text_out),
+        "json_out": str(json_out),
+        "summary_out": str(summary_out),
+        "meta_out": str(meta_out),
+        "gigaam_result": payload,
     }
-    print(json.dumps(note, ensure_ascii=False, indent=2))
+    print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
 

@@ -10,9 +10,10 @@ Use this skill to transcribe a local media file through a local GigaAM-v3 runtim
 ## Quick start
 
 1. Ensure the media file is local and the path is absolute.
-2. Ensure the runtime config is prepared for this repo.
+2. If runtime is not prepared yet, read:
+   - `{baseDir}/references/setup.md`
 3. Run:
-   - `python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file`
+   - `python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file --env-file {baseDir}/config/local.env`
 4. Use the returned artifact paths as source of truth.
 
 ## Use this skill for
@@ -28,10 +29,15 @@ Use this skill to transcribe a local media file through a local GigaAM-v3 runtim
 
 Require a local absolute path.
 
-### 2. Run the wrapper
+### 2. Bootstrap if needed
+
+If `config/local.env` is missing or `GIGAAM_LOCAL_PYTHON` is empty, read:
+- `{baseDir}/references/setup.md`
+
+### 3. Run the wrapper
 
 ```bash
-python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file
+python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file --env-file {baseDir}/config/local.env
 ```
 
 Optional flags:
@@ -41,7 +47,7 @@ Optional flags:
 - `--output-dir`
 - `--env-file`
 
-### 3. Trust artifacts
+### 4. Trust artifacts
 
 Use these artifact files:
 - `transcript.txt`
