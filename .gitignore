@@ -1,6 +1,6 @@
 __pycache__/
 *.pyc
-skill/.runtime/
+.runtime/
 skill/config/local.env
 artifacts/coldstart-hvzl/
 artifacts/smoke-hvzl/

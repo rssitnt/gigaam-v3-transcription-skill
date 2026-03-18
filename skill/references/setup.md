@@ -10,8 +10,8 @@ python3 {baseDir}/scripts/bootstrap_gigaam_runtime.py
 ```
 
 This prepares:
-- local clone of GigaAM under `skill/.runtime/GigaAM`
-- local venv under `skill/.runtime/gigaam-venv`
+- local clone of GigaAM under repo-level `.runtime/GigaAM`
+- local venv under repo-level `.runtime/gigaam-venv`
 - config file under `skill/config/local.env`
 
 ## First smoke run

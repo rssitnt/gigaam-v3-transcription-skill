@@ -1,38 +1,114 @@
 # gigaam-v3-transcription-skill
 
-GitHub-ready project for a public AgentSkill that provides local transcription through GigaAM-v3.
+Public standalone AgentSkill project for local transcription through **GigaAM-v3**.
 
-## Goal
+## What this repo is
 
-Build a **real distributable skill for agents** so another user can clone/download the repo, follow setup, package the `.skill`, and use local GigaAM-v3 transcription without hardcoded machine-specific paths.
+This repository is meant to become a real GitHub-publishable skill project so another user can:
 
-## What this project should become
+1. clone the repo;
+2. bootstrap a local GigaAM-v3 runtime;
+3. package the skill;
+4. transcribe a local media file;
+5. get transcript artifacts on disk.
 
-- standalone skill project
-- GitHub-publishable
-- packaged `.skill` artifact
-- bootstrap/setup flow
-- smoke test
-- no dependency on `/home/qwert/.openclaw/projects/live-rollout-check/...`
+## What the skill does
 
-## Current project structure
+The skill is intended for:
+- audio transcription;
+- voice note transcription;
+- video-audio transcription;
+- fallback transcription after public captions fail.
 
-- `AGENT.md` — main instruction for the coding agent working on this repo
-- `docs/public-skill-spec.md` — product and packaging requirements
-- `docs/runtime-contract.md` — expected runtime/config contract
-- `skill/SKILL.md` — public skill draft
-- `skill/scripts/run_gigaam_transcription.py` — standalone wrapper draft
-- `skill/scripts/bootstrap_gigaam_runtime.py` — runtime bootstrap draft
-- `examples/config.env.example` — example config
-- `tests/` — initial test placeholders
+The expected output artifacts are:
+- `transcript.txt`
+- `transcript.json`
+- `final_summary.json`
 
-## Success criteria
+## Repo layout
 
-This repo is successful when:
+- `AGENT.md` — working instruction for coding agents improving this repo
+- `docs/public-skill-spec.md` — product definition for the public skill
+- `docs/runtime-contract.md` — runtime/config contract
+- `skill/` — the actual AgentSkill source
+- `skill/SKILL.md` — skill definition
+- `skill/scripts/bootstrap_gigaam_runtime.py` — runtime bootstrap script
+- `skill/scripts/gigaam_skill_runtime.py` — standalone runtime adapter
+- `skill/scripts/run_gigaam_transcription.py` — wrapper used by the skill
+- `skill/config/config.env.example` — config example
+- `skill/references/setup.md` — setup reference used by the skill
+- `artifacts/skill.skill` — packaged skill artifact
 
-1. a user can clone it;
-2. follow setup instructions;
-3. configure local runtime once;
-4. package the skill;
-5. run transcription on a local media file;
-6. get transcript artifacts without editing machine-specific absolute paths in code.
+## Quick start
+
+### 1. Clone the repo
+
+```bash
+git clone <repo-url>
+cd gigaam-v3-transcription-skill
+```
+
+### 2. Ensure prerequisites
+
+Required local prerequisites:
+- Python 3
+- `ffmpeg`
+- network access for first bootstrap
+
+### 3. Bootstrap the runtime
+
+```bash
+python3 skill/scripts/bootstrap_gigaam_runtime.py
+```
+
+Expected result:
+- local GigaAM clone under `.runtime/GigaAM`
+- local venv under `.runtime/gigaam-venv`
+- local config at `skill/config/local.env`
+
+### 4. Run a smoke transcription
+
+```bash
+python3 skill/scripts/run_gigaam_transcription.py \
+  --input /absolute/path/to/local-media-file \
+  --env-file skill/config/local.env
+```
+
+### 5. Package the skill
+
+From a machine with OpenClaw skill tooling available:
+
+```bash
+python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/scripts/package_skill.py \
+  /mnt/c/projects/automations/gigaam-v3-transcription-skill/skill \
+  /mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts
+```
+
+Resulting packaged skill:
+- `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
+
+## Current honest state
+
+Already proven in this repo:
+- the skill validates and packages;
+- bootstrap creates a project-local runtime;
+- cold-start transcription works through that runtime;
+- transcript artifacts are written correctly.
+
+Still worth improving:
+- replace hardcoded packaging example with repo-local packaging helper;
+- add automated tests for bootstrap/config loading;
+- add cleaner release workflow for GitHub users outside the current machine.
+
+## Important limitations
+
+- first bootstrap downloads dependencies and can take time;
+- local `ffmpeg` is still required;
+- model/runtime setup is local-first, not zero-dependency;
+- this repo is close to public release quality, but still benefits from final GitHub polish and release instructions.
+
+## Source of truth inside the repo
+
+- public skill: `C:\projects\automations\gigaam-v3-transcription-skill\skill`
+- packaged artifact: `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
+- bootstrap reference: `C:\projects\automations\gigaam-v3-transcription-skill\skill\references\setup.md`

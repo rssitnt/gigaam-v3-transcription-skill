@@ -26,7 +26,8 @@ def main() -> int:
     args = parser.parse_args()
 
     skill_root = Path(__file__).resolve().parents[1]
-    runtime_root = skill_root / ".runtime"
+    repo_root = skill_root.parent
+    runtime_root = repo_root / ".runtime"
     venv_dir = runtime_root / "gigaam-venv"
     repo_dir = runtime_root / "GigaAM"
     config_dir = skill_root / "config"
