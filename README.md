@@ -56,6 +56,8 @@ Skill предназначен для:
 Самый короткий источник истины для агента:
 - `C:\projects\automations\gigaam-v3-transcription-skill\INSTALL.md`
 
+Там теперь специально оставлен максимально короткий install-contract без лишних шагов.
+
 #### Windows
 
 ```powershell

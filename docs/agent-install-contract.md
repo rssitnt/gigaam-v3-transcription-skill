@@ -10,14 +10,13 @@
 ## Минимальный сценарий для агента
 
 1. Получить URL репозитория.
-2. Склонировать репозиторий.
-3. Запустить верхний installer:
-   - Windows: `scripts/install.ps1`
-   - Linux: `scripts/install.sh`
-4. Запустить verify:
+2. Запустить URL-first installer:
+   - Windows: `scripts/install-from-url.ps1`
+   - Linux: `scripts/install-from-url.sh`
+3. Дождаться verify:
    - `scripts/verify_install.py`
-5. Прочитать `artifacts/install-report.json`.
-6. Сообщить человеку только короткий итог:
+4. Прочитать `artifacts/install-report.json`.
+5. Сообщить человеку только короткий итог:
    - установлен ли skill;
    - где лежит repo;
    - где лежит config;
