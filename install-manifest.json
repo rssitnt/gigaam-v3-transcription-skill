@@ -20,14 +20,16 @@
     "python available or auto-installable",
     "git available",
     "ffmpeg available or auto-downloadable",
-    "bootstrap creates repo-level runtime",
-    "config file written",
+    "bootstrap creates environment-specific repo-level runtime",
+    "environment-specific config file written",
+    "post-bootstrap import gigaam probe passes",
     "verify step returns ready=true"
   ],
   "artifactsOfSuccess": [
-    ".runtime/GigaAM",
-    ".runtime/gigaam-venv",
-    "skill/config/local.env",
+    ".runtime/<env-id>/GigaAM",
+    ".runtime/<env-id>/gigaam-venv",
+    "skill/config/local.<env-id>.env",
+    "skill/config/environments.json",
     "artifacts/install-report.json"
   ],
   "userIntentExamples": [

@@ -57,4 +57,5 @@ bash ./scripts/install-from-url.sh https://github.com/rssitnt/gigaam-v3-transcri
 
 - первый bootstrap может быть долгим;
 - runtime поднимается локально;
+- для разных сред (`Windows host`, `WSL`, `container`) skill теперь должен создавать отдельные runtime/config, а не делить один `local.env`;
 - Python/ffmpeg/bootstrap максимально автоматизированы, но всё ещё зависят от прав и системных инструментов машины.

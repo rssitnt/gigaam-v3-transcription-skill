@@ -10,6 +10,7 @@ from typing import Dict
 SKILL_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT_ROOT = SKILL_ROOT / "output" / "transcripts"
 DEFAULT_ENV_FILE = SKILL_ROOT / "config" / "local.env"
+ENV_MAP_FILE = SKILL_ROOT / "config" / "environments.json"
 RUNTIME_SCRIPT = Path(__file__).resolve().with_name("gigaam_skill_runtime.py")
 
 
@@ -37,6 +38,36 @@ def slug(value: str) -> str:
     return safe.strip("-") or "input"
 
 
+def detect_env_id() -> str:
+    if os.name == "nt":
+        return "windows-host"
+    if Path("/.dockerenv").exists():
+        return "linux-container"
+    if "microsoft" in os.uname().release.lower():
+        return "linux-wsl"
+    return "linux-host"
+
+
+def resolve_default_env_file() -> Path:
+    env_id = detect_env_id()
+    candidate = SKILL_ROOT / "config" / f"local.{env_id}.env"
+    if candidate.exists():
+        return candidate
+    if DEFAULT_ENV_FILE.exists():
+        return DEFAULT_ENV_FILE
+    if ENV_MAP_FILE.exists():
+        try:
+            payload = json.loads(ENV_MAP_FILE.read_text(encoding="utf-8"))
+            mapped = payload.get(env_id, {}).get("config_path")
+            if mapped:
+                path = Path(mapped)
+                if path.exists():
+                    return path
+        except Exception:
+            pass
+    return DEFAULT_ENV_FILE
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Standalone wrapper for GigaAM-v3 transcription skill")
     parser.add_argument("--input", required=True)
@@ -44,7 +75,7 @@ def main() -> int:
     parser.add_argument("--title")
     parser.add_argument("--language-hint", default="ru")
     parser.add_argument("--kind", default="audio")
-    parser.add_argument("--env-file", default=str(DEFAULT_ENV_FILE))
+    parser.add_argument("--env-file")
     parser.add_argument("--print-command", action="store_true")
     args = parser.parse_args()
 
@@ -54,7 +85,7 @@ def main() -> int:
     if not input_path.exists():
         raise SystemExit(f"ERROR: input file not found: {input_path}")
 
-    env_path = Path(args.env_file)
+    env_path = Path(args.env_file) if args.env_file else resolve_default_env_file()
     loaded = load_env_file(env_path)
     gigaam_python = env_value("GIGAAM_LOCAL_PYTHON", loaded)
     ffmpeg_bin = env_value("GIGAAM_FFMPEG_BIN", loaded) or "ffmpeg"
@@ -100,11 +131,11 @@ def main() -> int:
     ]
 
     if args.print_command:
-        print(json.dumps({"command": command}, ensure_ascii=False, indent=2))
+        print(json.dumps({"command": command, "env_file": str(env_path)}, ensure_ascii=False, indent=2))
         return 0
 
     if not gigaam_python:
-        raise SystemExit("ERROR: GIGAAM_LOCAL_PYTHON is not configured. Run bootstrap_gigaam_runtime.py first or provide config/local.env.")
+        raise SystemExit("ERROR: GIGAAM_LOCAL_PYTHON is not configured. Run bootstrap_gigaam_runtime.py first or provide env-file.")
 
     completed = subprocess.run(command, capture_output=True, text=True)
     if completed.returncode != 0:
@@ -116,6 +147,7 @@ def main() -> int:
     result = {
         "status": "ok",
         "input": str(input_path),
+        "env_file": str(env_path),
         "output_dir": str(output_dir),
         "text_out": str(text_out),
         "json_out": str(json_out),

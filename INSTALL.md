@@ -29,5 +29,6 @@ bash ./scripts/install-from-url.sh https://github.com/rssitnt/gigaam-v3-transcri
 Коротко сообщи:
 - установлен ли skill;
 - где лежит репозиторий;
+- какой `env_id` активен;
 - где лежит config;
 - какой командой запускать транскрибацию.
