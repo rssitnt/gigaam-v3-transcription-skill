@@ -52,17 +52,29 @@ git clone <repo-url>
 cd gigaam-v3-transcription-skill
 ```
 
-### 2. Проверить базовые требования
+### 2. Самая простая установка
 
-Нужно:
-- Python 3
-- сеть для первого bootstrap
+#### Windows
 
-Логика по `ffmpeg` теперь такая:
-- если `ffmpeg` уже есть в PATH, bootstrap его переиспользует;
-- если `ffmpeg` нет, bootstrap может сам скачать portable/static сборку внутрь репозитория.
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1
+```
 
-### 3. Поднять runtime
+#### Linux
+
+```bash
+bash ./scripts/install.sh
+```
+
+Что делает installer-слой:
+- проверяет Python;
+- если Python отсутствует, пытается поставить его автоматически;
+- после этого запускает bootstrap skill runtime;
+- bootstrap уже сам поднимает GigaAM runtime и разбирается с `ffmpeg`.
+
+### 3. Поднять runtime напрямую
+
+Если не нужен верхний installer-слой, можно запускать bootstrap напрямую:
 
 ```bash
 python3 skill/scripts/bootstrap_gigaam_runtime.py
@@ -80,6 +92,9 @@ python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode download
 - локальный клон GigaAM в `.runtime/GigaAM`
 - локальный venv в `.runtime/gigaam-venv`
 - локальный конфиг в `skill/config/local.env`
+
+Подробности по installer-слою:
+- `C:\projects\automations\gigaam-v3-transcription-skill\docs\installer-flow.md`
 
 ### 4. Сделать smoke-transcription
 

@@ -33,10 +33,11 @@ python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/s
 Ожидаемый артефакт:
 - `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
 
-## 3. Проверить, что bootstrap-инструкции всё ещё честные
+## 3. Проверить, что install/bootstrap-инструкции всё ещё честные
 
 Проверь:
 - `C:\projects\automations\gigaam-v3-transcription-skill\README.md`
+- `C:\projects\automations\gigaam-v3-transcription-skill\docs\installer-flow.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\skill\references\setup.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\docs\release-checklist.md`
 
