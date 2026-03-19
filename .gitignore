@@ -6,3 +6,6 @@ artifacts/coldstart-hvzl/
 artifacts/smoke-hvzl/
 
 skill/output/
+
+skill/config/*.local.env*
+skill/config/local.env*
