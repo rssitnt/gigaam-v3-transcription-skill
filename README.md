@@ -1,5 +1,9 @@
 # gigaam-v3-transcription-skill
 
+<p align="center">
+  <img src="docs/images/skill-creator-banner.jpg" alt="Skill Creator banner for gigaam-v3-transcription-skill" width="1200">
+</p>
+
 Публичный standalone-проект AgentSkill для локальной транскрибации через **GigaAM-v3**.
 
 ## Что это за репозиторий
