@@ -52,13 +52,24 @@ cd gigaam-v3-transcription-skill
 
 Required local prerequisites:
 - Python 3
-- `ffmpeg`
 - network access for first bootstrap
+
+`ffmpeg` behavior now works like this:
+- if `ffmpeg` already exists in PATH, bootstrap reuses it;
+- if `ffmpeg` is missing, bootstrap can auto-download a portable/static build into the repo runtime area.
 
 ### 3. Bootstrap the runtime
 
 ```bash
 python3 skill/scripts/bootstrap_gigaam_runtime.py
+```
+
+Optional ffmpeg modes:
+
+```bash
+python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode auto
+python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode system
+python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode download
 ```
 
 Expected result:
