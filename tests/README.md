@@ -1,8 +1,8 @@
-# Tests
+# Тесты
 
-Planned test types:
+Запланированные типы тестов:
 
-- config loading
-- command building
-- smoke transcription on a short fixture
-- packaging validation
+- загрузка конфига;
+- сборка команды запуска;
+- smoke-транскрибация на коротком fixture-файле;
+- проверка упаковки skill.

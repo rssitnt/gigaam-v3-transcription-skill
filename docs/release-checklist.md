@@ -1,32 +1,32 @@
-# Release checklist
+# Чеклист релиза
 
-Use this before publishing the repo publicly.
+Используй этот список перед публичной публикацией репозитория.
 
-## Repository quality
+## Качество репозитория
 
-- [ ] README matches the current repo behavior
-- [ ] no private machine-only paths remain in required runtime logic
-- [ ] `.gitignore` excludes runtime/cache/local smoke artifacts
-- [ ] no secrets are committed
-- [ ] packaged skill can be rebuilt from repo contents
+- [ ] README соответствует текущему поведению репозитория
+- [ ] в обязательной runtime-логике не осталось приватных машинных путей
+- [ ] `.gitignore` исключает runtime/cache/локальные smoke-артефакты
+- [ ] в репозиторий не закоммичены секреты
+- [ ] упакованный skill можно пересобрать из содержимого репозитория
 
-## Runtime quality
+## Качество runtime
 
-- [ ] bootstrap works on a clean machine
-- [ ] `ffmpeg` prerequisite is documented clearly
-- [ ] config file generation is documented clearly
-- [ ] smoke transcription succeeds on a local fixture
+- [ ] bootstrap работает на чистой машине
+- [ ] поведение и требования к `ffmpeg` описаны понятно
+- [ ] генерация config-файла описана понятно
+- [ ] smoke-транскрибация проходит на локальной тестовой записи
 
-## Skill quality
+## Качество skill
 
-- [ ] `skill/SKILL.md` matches the actual scripts
-- [ ] references are minimal and useful
-- [ ] packaged `.skill` validates successfully
-- [ ] wrapper writes `transcript.txt`, `transcript.json`, `final_summary.json`
+- [ ] `skill/SKILL.md` соответствует реальным скриптам
+- [ ] references минимальны и полезны
+- [ ] упакованный `.skill` валидируется успешно
+- [ ] wrapper пишет `transcript.txt`, `transcript.json`, `final_summary.json`
 
-## Release outputs
+## Релизные действия
 
-- [ ] create/update GitHub repo
-- [ ] push clean commit history
-- [ ] attach `artifacts/skill.skill` to release if needed
-- [ ] include quick-start commands in release notes
+- [ ] создать/обновить GitHub-репозиторий
+- [ ] запушить чистую историю коммитов
+- [ ] при необходимости прикрепить `artifacts/skill.skill` к GitHub Release
+- [ ] добавить быстрые команды запуска в release notes

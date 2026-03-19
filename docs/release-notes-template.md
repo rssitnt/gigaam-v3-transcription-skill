@@ -1,35 +1,35 @@
-# Release notes template
+# Шаблон release notes
 
 ## gigaam-v3-transcription-skill v0.1.0
 
-### What is included
+### Что входит в релиз
 
-- public AgentSkill for local GigaAM-v3 transcription
-- bootstrap script for project-local runtime setup
+- публичный AgentSkill для локальной транскрибации через GigaAM-v3
+- bootstrap-скрипт для project-local runtime
 - standalone runtime adapter
-- wrapper script for local media transcription
+- wrapper для транскрибации локального медиафайла
 - packaged skill artifact
 
-### What the skill produces
+### Что создаёт skill
 
 - `transcript.txt`
 - `transcript.json`
 - `final_summary.json`
 
-### Requirements
+### Что требуется
 
 - Python 3
-- `ffmpeg`
-- network access on first bootstrap
+- `ffmpeg` или возможность автодотягивания `ffmpeg` через bootstrap
+- сеть на первом bootstrap
 
-### Honest limitations
+### Честные ограничения
 
-- first run can take time because dependencies/models must be prepared
-- local runtime setup is required before first real transcription
-- public distribution baseline is ready, but future releases can still improve test coverage and UX polish
+- первый запуск может занимать время, потому что нужно подготовить зависимости и модель;
+- перед первой реальной транскрибацией нужно поднять локальный runtime;
+- базовый публичный контур уже готов, но следующие релизы ещё могут улучшить UX и тестовое покрытие.
 
-### Main paths
+### Основные пути
 
-- repo: `C:\projects\automations\gigaam-v3-transcription-skill`
+- репозиторий: `C:\projects\automations\gigaam-v3-transcription-skill`
 - skill: `C:\projects\automations\gigaam-v3-transcription-skill\skill`
 - packaged artifact: `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`

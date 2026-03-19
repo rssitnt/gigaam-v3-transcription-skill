@@ -1,28 +1,28 @@
-# Publish guide
+# Инструкция по публикации
 
-Use this guide when the repository is ready to be pushed to GitHub.
+Используй эту инструкцию, когда репозиторий готов к отправке на GitHub.
 
-## Repository path
+## Путь к репозиторию
 
 `C:\projects\automations\gigaam-v3-transcription-skill`
 
-## 1. Final pre-publish check
+## 1. Финальная проверка перед публикацией
 
-Run:
+Запусти:
 
 ```bash
 cd /mnt/c/projects/automations/gigaam-v3-transcription-skill
 git status --short
 ```
 
-Expected result:
-- no unexpected tracked changes
-- no secrets in diff
-- no runtime/cache noise in staged files
+Ожидаемый результат:
+- нет неожиданных tracked-изменений;
+- в diff нет секретов;
+- в staged-файлах нет runtime/cache-мусора.
 
-## 2. Validate packaging
+## 2. Проверить упаковку
 
-Run:
+Запусти:
 
 ```bash
 python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/scripts/package_skill.py \
@@ -30,25 +30,25 @@ python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/s
   /mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts
 ```
 
-Expected artifact:
+Ожидаемый артефакт:
 - `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
 
-## 3. Verify bootstrap instructions are still honest
+## 3. Проверить, что bootstrap-инструкции всё ещё честные
 
-Check:
+Проверь:
 - `C:\projects\automations\gigaam-v3-transcription-skill\README.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\skill\references\setup.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\docs\release-checklist.md`
 
-## 4. Create GitHub repository
+## 4. Создать GitHub-репозиторий
 
-Example:
-- repo name: `gigaam-v3-transcription-skill`
-- visibility: choose public or private intentionally
+Пример:
+- имя репозитория: `gigaam-v3-transcription-skill`
+- видимость: выбрать осознанно — public или private
 
-## 5. Push repository
+## 5. Запушить репозиторий
 
-Example:
+Пример:
 
 ```bash
 cd /mnt/c/projects/automations/gigaam-v3-transcription-skill
@@ -56,23 +56,23 @@ git remote add origin <github-repo-url>
 git push -u origin master
 ```
 
-If using `main`, rename branch first:
+Если используешь `main`, сначала переименуй ветку:
 
 ```bash
 git branch -M main
 git push -u origin main
 ```
 
-## 6. Optional release asset
+## 6. Дополнительный релизный артефакт
 
-You can attach this file to a GitHub Release:
+Можно прикрепить к GitHub Release:
 - `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
 
-## 7. Recommended first release text
+## 7. Что писать в первом релизе
 
-Recommended first release message:
-- local GigaAM-v3 transcription skill
-- project-local bootstrap flow
-- packaged `.skill`
-- transcript artifacts: txt/json/summary
-- honest runtime prerequisites: Python, ffmpeg, first-run downloads
+Рекомендуемый смысл первого релиза:
+- локальный skill транскрибации на GigaAM-v3;
+- project-local bootstrap flow;
+- packaged `.skill`;
+- артефакты транскрибации: txt/json/summary;
+- честные требования к runtime: Python, ffmpeg, first-run downloads.

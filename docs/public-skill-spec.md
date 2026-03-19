@@ -1,44 +1,44 @@
-# Public skill spec
+# Спецификация публичного skill
 
-## Product
+## Продукт
 
-Public AgentSkill: `gigaam-v3-transcription`
+Публичный AgentSkill: `gigaam-v3-transcription`
 
-## Purpose
+## Назначение
 
-Provide a local-first transcription skill for:
-- audio
-- voice notes
-- video-audio
-- extracted YouTube audio
+Дать локальный skill для транскрибации через GigaAM-v3 для:
+- аудио;
+- голосовых сообщений;
+- звука из видео;
+- извлечённого YouTube-аудио.
 
-## Expected user value
+## Ценность для пользователя
 
-The user installs one skill and gets a repeatable local ASR path based on GigaAM-v3.
+Пользователь устанавливает один skill и получает повторяемый локальный ASR-контур на базе GigaAM-v3.
 
-## Public distribution constraints
+## Ограничения публичного распространения
 
-- repository must be self-contained
-- setup flow must be documented
-- skill must not depend on hidden local repos
-- configuration must be externalized
-- packaged `.skill` must be buildable from this repo
+- репозиторий должен быть самодостаточным;
+- setup flow должен быть задокументирован;
+- skill не должен зависеть от скрытых локальных репозиториев;
+- конфигурация должна быть вынесена из кода;
+- упакованный `.skill` должен собираться из этого репозитория.
 
-## Minimum public capabilities
+## Минимальные публичные возможности
 
-1. accept a local absolute media path
-2. run GigaAM-v3 on that file
-3. write:
-   - transcript.txt
-   - transcript.json
-   - final_summary.json
-4. return artifact paths
-5. fail with clear actionable error if runtime/config is missing
+1. принять локальный абсолютный путь к медиафайлу;
+2. запустить GigaAM-v3 на этом файле;
+3. записать:
+   - `transcript.txt`
+   - `transcript.json`
+   - `final_summary.json`
+4. вернуть пути к артефактам;
+5. падать с понятной и полезной ошибкой, если runtime/config ещё не готовы.
 
-## Nice-to-have later
+## Что можно добавить позже
 
-- language hints
-- chunk controls
-- output directory override
-- YouTube audio fallback helper
-- transcript summarization helper
+- language hints;
+- контроль размера чанков;
+- override выходной папки;
+- helper для fallback-транскрибации YouTube-аудио;
+- helper для summarization transcript.

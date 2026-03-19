@@ -1,70 +1,70 @@
 # gigaam-v3-transcription-skill
 
-Public standalone AgentSkill project for local transcription through **GigaAM-v3**.
+Публичный standalone-проект AgentSkill для локальной транскрибации через **GigaAM-v3**.
 
-## What this repo is
+## Что это за репозиторий
 
-This repository is meant to become a real GitHub-publishable skill project so another user can:
+Этот репозиторий нужен для того, чтобы другой человек мог:
 
-1. clone the repo;
-2. bootstrap a local GigaAM-v3 runtime;
-3. package the skill;
-4. transcribe a local media file;
-5. get transcript artifacts on disk.
+1. скачать репозиторий;
+2. поднять локальный runtime GigaAM-v3;
+3. упаковать skill;
+4. транскрибировать локальный медиафайл;
+5. получить артефакты транскрибации на диске.
 
-## What the skill does
+## Что делает skill
 
-The skill is intended for:
-- audio transcription;
-- voice note transcription;
-- video-audio transcription;
-- fallback transcription after public captions fail.
+Skill предназначен для:
+- транскрибации аудио;
+- транскрибации голосовых сообщений;
+- транскрибации звука из видео;
+- fallback-транскрибации, когда публичные captions не отдаются.
 
-The expected output artifacts are:
+Ожидаемые выходные артефакты:
 - `transcript.txt`
 - `transcript.json`
 - `final_summary.json`
 
-## Repo layout
+## Структура репозитория
 
-- `AGENT.md` — working instruction for coding agents improving this repo
-- `docs/public-skill-spec.md` — product definition for the public skill
-- `docs/runtime-contract.md` — runtime/config contract
-- `skill/` — the actual AgentSkill source
-- `skill/SKILL.md` — skill definition
-- `skill/scripts/bootstrap_gigaam_runtime.py` — runtime bootstrap script
+- `AGENT.md` — рабочая инструкция для coding-агентов, которые улучшают этот проект
+- `docs/public-skill-spec.md` — продуктовая спецификация публичного skill
+- `docs/runtime-contract.md` — контракт runtime/config
+- `skill/` — исходники самого AgentSkill
+- `skill/SKILL.md` — описание skill
+- `skill/scripts/bootstrap_gigaam_runtime.py` — bootstrap-скрипт runtime
 - `skill/scripts/gigaam_skill_runtime.py` — standalone runtime adapter
-- `skill/scripts/run_gigaam_transcription.py` — wrapper used by the skill
-- `skill/config/config.env.example` — config example
-- `skill/references/setup.md` — setup reference used by the skill
-- `artifacts/skill.skill` — packaged skill artifact
+- `skill/scripts/run_gigaam_transcription.py` — wrapper, который вызывает skill
+- `skill/config/config.env.example` — пример конфига
+- `skill/references/setup.md` — setup reference, на который ссылается skill
+- `artifacts/skill.skill` — упакованный артефакт skill
 
-## Quick start
+## Быстрый старт
 
-### 1. Clone the repo
+### 1. Клонировать репозиторий
 
 ```bash
 git clone <repo-url>
 cd gigaam-v3-transcription-skill
 ```
 
-### 2. Ensure prerequisites
+### 2. Проверить базовые требования
 
-Required local prerequisites:
+Нужно:
 - Python 3
-- network access for first bootstrap
+- сеть для первого bootstrap
 
-`ffmpeg` behavior now works like this:
-- if `ffmpeg` already exists in PATH, bootstrap reuses it;
-- if `ffmpeg` is missing, bootstrap can auto-download a portable/static build into the repo runtime area.
+Логика по `ffmpeg` теперь такая:
+- если `ffmpeg` уже есть в PATH, bootstrap его переиспользует;
+- если `ffmpeg` нет, bootstrap может сам скачать portable/static сборку внутрь репозитория.
 
-### 3. Bootstrap the runtime
+### 3. Поднять runtime
 
 ```bash
 python3 skill/scripts/bootstrap_gigaam_runtime.py
 ```
 
-Optional ffmpeg modes:
+Дополнительные режимы для `ffmpeg`:
 
 ```bash
 python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode auto
@@ -72,12 +72,12 @@ python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode system
 python3 skill/scripts/bootstrap_gigaam_runtime.py --ffmpeg-mode download
 ```
 
-Expected result:
-- local GigaAM clone under `.runtime/GigaAM`
-- local venv under `.runtime/gigaam-venv`
-- local config at `skill/config/local.env`
+Что должно появиться после bootstrap:
+- локальный клон GigaAM в `.runtime/GigaAM`
+- локальный venv в `.runtime/gigaam-venv`
+- локальный конфиг в `skill/config/local.env`
 
-### 4. Run a smoke transcription
+### 4. Сделать smoke-transcription
 
 ```bash
 python3 skill/scripts/run_gigaam_transcription.py \
@@ -85,9 +85,9 @@ python3 skill/scripts/run_gigaam_transcription.py \
   --env-file skill/config/local.env
 ```
 
-### 5. Package the skill
+### 5. Упаковать skill
 
-From a machine with OpenClaw skill tooling available:
+На машине, где доступен OpenClaw skill tooling:
 
 ```bash
 python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/scripts/package_skill.py \
@@ -95,31 +95,30 @@ python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/s
   /mnt/c/projects/automations/gigaam-v3-transcription-skill/artifacts
 ```
 
-Resulting packaged skill:
+Итоговый упакованный skill:
 - `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
 
-## Current honest state
+## Текущий честный статус
 
-Already proven in this repo:
-- the skill validates and packages;
-- bootstrap creates a project-local runtime;
-- cold-start transcription works through that runtime;
-- transcript artifacts are written correctly.
+В этом репозитории уже подтверждено:
+- skill валидируется и пакуется;
+- bootstrap создаёт project-local runtime;
+- cold-start транскрибация через этот runtime работает;
+- артефакты транскрибации пишутся корректно.
 
-Still worth improving:
-- replace hardcoded packaging example with repo-local packaging helper;
-- add automated tests for bootstrap/config loading;
-- add cleaner release workflow for GitHub users outside the current machine.
+Что ещё стоит улучшить:
+- заменить жёсткий пример packaging-команды на repo-local helper;
+- добавить автоматические тесты для bootstrap/config loading;
+- отполировать release workflow для пользователей вне текущей машины.
 
-## Important limitations
+## Важные ограничения
 
-- first bootstrap downloads dependencies and can take time;
-- local `ffmpeg` is still required;
-- model/runtime setup is local-first, not zero-dependency;
-- this repo is close to public release quality, but still benefits from final GitHub polish and release instructions.
+- первый bootstrap скачивает зависимости и может занимать время;
+- модель и runtime поднимаются локально, это не zero-dependency сценарий;
+- проект уже близок к публичному релизу, но его ещё можно улучшать по UX и тестовому покрытию.
 
-## Source of truth inside the repo
+## Основные пути в репозитории
 
-- public skill: `C:\projects\automations\gigaam-v3-transcription-skill\skill`
-- packaged artifact: `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
+- публичный skill: `C:\projects\automations\gigaam-v3-transcription-skill\skill`
+- упакованный артефакт: `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\skill.skill`
 - bootstrap reference: `C:\projects\automations\gigaam-v3-transcription-skill\skill\references\setup.md`

@@ -1,59 +1,59 @@
 ---
 name: gigaam-v3-transcription
-description: Local transcription of audio, voice notes, video-audio, and extracted YouTube audio through GigaAM-v3. Use when an agent needs a local ASR path for media files and wants transcript artifacts on disk. Best for absolute local media paths and artifact-first workflows.
+description: Локальная транскрибация аудио, голосовых сообщений, звука из видео и извлечённого YouTube-аудио через GigaAM-v3. Используй, когда агенту нужен локальный ASR-контур для медиафайлов и нужны артефакты транскрибации на диске.
 ---
 
 # GigaAM-v3 transcription
 
-Use this skill to transcribe a local media file through a local GigaAM-v3 runtime.
+Используй этот skill, чтобы транскрибировать локальный медиафайл через локальный runtime GigaAM-v3.
 
-## Quick start
+## Быстрый старт
 
-1. Ensure the media file is local and the path is absolute.
-2. If runtime is not prepared yet, read:
+1. Убедись, что медиафайл лежит локально и путь к нему абсолютный.
+2. Если runtime ещё не подготовлен, прочитай:
    - `{baseDir}/references/setup.md`
-3. Run:
+3. Запусти:
    - `python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file --env-file {baseDir}/config/local.env`
-4. Use the returned artifact paths as source of truth.
+4. Используй возвращённые пути к артефактам как источник истины.
 
-## Use this skill for
+## Для чего использовать этот skill
 
-- local audio transcription
-- voice note transcription
-- video-audio transcription
-- fallback transcription after public captions fail
+- локальная транскрибация аудио;
+- транскрибация голосовых сообщений;
+- транскрибация звука из видео;
+- fallback-транскрибация, когда публичные captions не отдали текст.
 
 ## Workflow
 
-### 1. Validate input
+### 1. Проверить вход
 
-Require a local absolute path.
+Требуй локальный абсолютный путь.
 
-### 2. Bootstrap if needed
+### 2. Если нужно — сделать bootstrap
 
-If `config/local.env` is missing or `GIGAAM_LOCAL_PYTHON` is empty, read:
+Если `config/local.env` отсутствует или `GIGAAM_LOCAL_PYTHON` пустой, прочитай:
 - `{baseDir}/references/setup.md`
 
-### 3. Run the wrapper
+### 3. Запустить wrapper
 
 ```bash
 python3 {baseDir}/scripts/run_gigaam_transcription.py --input /absolute/path/to/file --env-file {baseDir}/config/local.env
 ```
 
-Optional flags:
+Полезные флаги:
 - `--title`
 - `--language-hint`
 - `--kind`
 - `--output-dir`
 - `--env-file`
 
-### 4. Trust artifacts
+### 4. Доверять артефактам, а не чату
 
-Use these artifact files:
+Используй эти файлы:
 - `transcript.txt`
 - `transcript.json`
 - `final_summary.json`
 
-### 4. Report honestly
+### 5. Сообщать честно
 
-If runtime/config/bootstrap is missing, report the exact blocker and point to setup.
+Если runtime/config/bootstrap не готовы, сообщи точный блокер и укажи на setup.

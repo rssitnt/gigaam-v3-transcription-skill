@@ -1,12 +1,12 @@
-# Runtime contract
+# Контракт runtime
 
-## Principle
+## Принцип
 
-The public skill must discover runtime from config, not from private machine paths.
+Публичный skill должен находить runtime через config, а не через приватные машинные пути.
 
-## Required config
+## Обязательные конфиги
 
-Expected config values:
+Ожидаемые значения:
 
 - `GIGAAM_LOCAL_PYTHON`
 - `GIGAAM_MODEL`
@@ -14,30 +14,30 @@ Expected config values:
 - `GIGAAM_MAX_CHUNK_SECONDS`
 - `GIGAAM_OUTPUT_ROOT`
 
-## Config sources
+## Источники конфигурации
 
-Preferred order:
+Предпочтительный порядок:
 
-1. explicit CLI flags
-2. env file
-3. environment variables
+1. явные CLI-флаги
+2. env-файл
+3. переменные окружения
 
-## Required behavior
+## Обязательное поведение
 
-If runtime is missing:
-- stop cleanly
-- explain what is missing
-- point to setup/bootstrap step
+Если runtime отсутствует:
+- остановиться чисто;
+- объяснить, чего именно не хватает;
+- указать на setup/bootstrap шаг.
 
-## Output contract
+## Контракт выходных данных
 
-For every successful run, produce:
+Для каждого успешного запуска нужно создать:
 
 - `transcript.txt`
 - `transcript.json`
 - `final_summary.json`
 
-## Packaging contract
+## Контракт упаковки
 
-The skill itself should remain thin.
-Heavy setup logic should live in repo scripts and be referenced from the skill.
+Сам skill должен оставаться тонким.
+Тяжёлая setup-логика должна жить в repo scripts и вызываться из skill по ссылке.

@@ -1,23 +1,23 @@
-# Setup
+# Настройка
 
-## Public bootstrap path
+## Публичный bootstrap path
 
-1. Run bootstrap:
+1. Запусти bootstrap:
 
 ```bash
 python3 {baseDir}/scripts/bootstrap_gigaam_runtime.py
 ```
 
-This prepares:
-- local clone of GigaAM under repo-level `.runtime/GigaAM`
-- local venv under repo-level `.runtime/gigaam-venv`
-- config file under `skill/config/local.env`
-- `ffmpeg` path in one of three modes:
-  - reuse from system PATH;
-  - fail if `--ffmpeg-mode system` and not found;
-  - auto-download a portable/static build if needed
+Что он подготавливает:
+- локальный клон GigaAM в repo-level `.runtime/GigaAM`
+- локальный venv в repo-level `.runtime/gigaam-venv`
+- config-файл в `skill/config/local.env`
+- путь к `ffmpeg` в одном из трёх режимов:
+  - взять из system PATH;
+  - упасть, если выбран `--ffmpeg-mode system`, а `ffmpeg` не найден;
+  - автоматически скачать portable/static build, если это нужно
 
-## First smoke run
+## Первый smoke-run
 
 ```bash
 python3 {baseDir}/scripts/run_gigaam_transcription.py \
@@ -25,8 +25,8 @@ python3 {baseDir}/scripts/run_gigaam_transcription.py \
   --env-file {baseDir}/config/local.env
 ```
 
-## Honest limitations
+## Честные ограничения
 
-- Bootstrap uses network access to clone/install dependencies.
-- If `ffmpeg` is not in PATH, bootstrap may download a portable/static build into the repo runtime area.
-- Large models can take time to download/cache on the first run.
+- bootstrap использует сеть для clone/install зависимостей;
+- если `ffmpeg` нет в PATH, bootstrap может скачать portable/static build в runtime-область репозитория;
+- на первом запуске подготовка модели и кеша может занять время.
