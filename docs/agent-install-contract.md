@@ -2,9 +2,10 @@
 
 Цель: дать даже простому агенту достаточно структуры, чтобы он смог установить skill по одной ссылке.
 
-## Источник истины для агента
+## Источники истины для агента
 
-- `C:\projects\automations\gigaam-v3-transcription-skill\install-manifest.json`
+- короткая инструкция: `C:\projects\automations\gigaam-v3-transcription-skill\INSTALL.md`
+- machine-readable manifest: `C:\projects\automations\gigaam-v3-transcription-skill\install-manifest.json`
 
 ## Минимальный сценарий для агента
 
