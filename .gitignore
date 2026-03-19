@@ -4,3 +4,5 @@ __pycache__/
 skill/config/local.env
 artifacts/coldstart-hvzl/
 artifacts/smoke-hvzl/
+
+skill/output/
