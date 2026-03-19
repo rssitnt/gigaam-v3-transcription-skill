@@ -37,6 +37,8 @@ python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/s
 
 Проверь:
 - `C:\projects\automations\gigaam-v3-transcription-skill\README.md`
+- `C:\projects\automations\gigaam-v3-transcription-skill\install-manifest.json`
+- `C:\projects\automations\gigaam-v3-transcription-skill\docs\agent-install-contract.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\docs\installer-flow.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\skill\references\setup.md`
 - `C:\projects\automations\gigaam-v3-transcription-skill\docs\release-checklist.md`

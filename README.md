@@ -45,14 +45,39 @@ Skill предназначен для:
 
 ## Быстрый старт
 
-### 1. Клонировать репозиторий
+### 1. Основной режим: agent-first установка по ссылке
+
+Если пользователь просто даёт агенту ссылку на репозиторий и говорит «скачай skill», базовый путь теперь такой.
+
+#### Windows
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-from-url.ps1 -RepoUrl https://github.com/rssitnt/gigaam-v3-transcription-skill.git
+```
+
+#### Linux
+
+```bash
+bash ./scripts/install-from-url.sh https://github.com/rssitnt/gigaam-v3-transcription-skill.git
+```
+
+После этого агент должен проверить:
+- `C:\projects\automations\gigaam-v3-transcription-skill\artifacts\install-report.json`
+
+Подробный контракт для агентов:
+- `C:\projects\automations\gigaam-v3-transcription-skill\install-manifest.json`
+- `C:\projects\automations\gigaam-v3-transcription-skill\docs\agent-install-contract.md`
+
+### 2. Ручной / fallback режим
+
+### 2.1 Клонировать репозиторий
 
 ```bash
 git clone <repo-url>
 cd gigaam-v3-transcription-skill
 ```
 
-### 2. Самая простая установка
+### 2.2 Самая простая установка
 
 #### Windows
 
@@ -123,7 +148,8 @@ python3 /home/qwert/.npm-global/lib/node_modules/openclaw/skills/skill-creator/s
 - skill валидируется и пакуется;
 - bootstrap создаёт project-local runtime;
 - cold-start транскрибация через этот runtime работает;
-- артефакты транскрибации пишутся корректно.
+- артефакты транскрибации пишутся корректно;
+- появился agent-first install contract: install manifest + verify/report path + install-from-url entrypoints.
 
 Что ещё стоит улучшить:
 - заменить жёсткий пример packaging-команды на repo-local helper;

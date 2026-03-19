@@ -1,0 +1,47 @@
+{
+  "schema": "gigaam-v3-transcription.install-manifest.v1",
+  "name": "gigaam-v3-transcription-skill",
+  "displayName": "GigaAM-v3 transcription skill",
+  "repoUrl": "https://github.com/rssitnt/gigaam-v3-transcription-skill.git",
+  "defaultBranch": "main",
+  "audience": "agent-first",
+  "goal": "Позволить агенту скачать репозиторий, установить зависимости, поднять runtime и проверить готовность skill практически без ручного участия человека.",
+  "platforms": {
+    "windows": {
+      "installEntry": "scripts/install.ps1",
+      "verifyEntry": "scripts/verify_install.py"
+    },
+    "linux": {
+      "installEntry": "scripts/install.sh",
+      "verifyEntry": "scripts/verify_install.py"
+    }
+  },
+  "checks": [
+    "python available or auto-installable",
+    "git available",
+    "ffmpeg available or auto-downloadable",
+    "bootstrap creates repo-level runtime",
+    "config file written",
+    "verify step returns ready=true"
+  ],
+  "artifactsOfSuccess": [
+    ".runtime/GigaAM",
+    ".runtime/gigaam-venv",
+    "skill/config/local.env",
+    "artifacts/install-report.json"
+  ],
+  "userIntentExamples": [
+    "скачай skill по ссылке",
+    "установи этот skill",
+    "подними мне GigaAM-v3 transcription"
+  ],
+  "finalUserMessageContract": {
+    "required": [
+      "что установлено",
+      "готов ли skill",
+      "где лежит repo",
+      "где лежит config",
+      "чем запускать транскрибацию"
+    ]
+  }
+}

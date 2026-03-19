@@ -2,6 +2,10 @@
 
 Этот слой нужен для сценария «скачал репозиторий и запустил один installer».
 
+Если нужен именно режим «дай агенту ссылку и он сам поставит skill», смотри:
+- `C:\projects\automations\gigaam-v3-transcription-skill\install-manifest.json`
+- `C:\projects\automations\gigaam-v3-transcription-skill\docs\agent-install-contract.md`
+
 ## Windows
 
 Главный вход:
